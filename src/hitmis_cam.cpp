@@ -70,7 +70,8 @@ typedef struct
     const char *savedir;
     float cadence,
         maxexposure,
-        percentile;
+        percentile,
+        temperature;
     int maxbin,
         value,
         uncertainty;
@@ -111,6 +112,7 @@ static int inihandler(void *user, const char *section, const char *name, const c
     CHECKF("CONFIG", cadence)
     CHECKF("CONFIG", maxexposure)
     CHECKF("CONFIG", percentile)
+    CHECKF("CONFIG", temperature)
     CHECKI("CONFIG", maxbin)
     CHECKI("CONFIG", value)
     CHECKI("CONFIG", uncertainty)
@@ -223,6 +225,10 @@ int main(int argc, char *argv[])
         config.uncertainty = 10000;
     if (config.uncertainty < 1000)
         config.uncertainty = 1000;
+    if (config.temperature > -10)
+        config.temperature = -10;
+    if (config.temperature < -80)
+        config.temperature = -80;
     if (strlen(config.savedir) == 0)
     {
         if (!GetCurrentDirectoryA(sizeof(_savepath), _savepath))
@@ -253,6 +259,7 @@ int main(int argc, char *argv[])
     }
     cam->SetExposure(0.1);
     cam->SetBinningAndROI(1, 1);
+    cam->SetTemperature(config.temperature);
     while (!done)
     {
         static char dirname[256];
@@ -262,6 +269,7 @@ int main(int argc, char *argv[])
         _snprintf(dirname, sizeof(dirname), "%s\\%s", config.savedir, get_date());
         checknmakedir(dirname);
         img.SaveFits(NULL, dirname);
+        tprintlf("Saved exposure (%.3f s), CCD Temperature %.2f", exposure, cam->GetTemperature());
         img.FindOptimumExposure(exposure, config.percentile, config.value, config.maxexposure, 0, config.uncertainty);
         cam->SetExposure(exposure);
         unsigned char *ptr;
