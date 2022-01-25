@@ -65,7 +65,7 @@ public:
      * 
      * @return float 
      */
-    virtual float GetExposure() = 0;
+    virtual float GetExposure() const = 0;
     /**
      * @brief Open or close the shutter
      * 
@@ -89,7 +89,7 @@ public:
      * 
      * @return double 
      */
-    virtual double GetTemperature() = 0;
+    virtual double GetTemperature() const = 0;
     /**
      * @brief Set the Binning And ROI information
      * 

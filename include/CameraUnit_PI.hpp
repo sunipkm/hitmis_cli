@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022
  * 
  */
-#ifndef __CAMERAUNIT_PI_H__
-#define __CAMERAUNIT_PI_H__
+#ifndef __CAMERAUNIT_PI_HPP__
+#define __CAMERAUNIT_PI_HPP__
 
 #include "CameraUnit.hpp"
 #include "pvcam.h"
@@ -65,11 +65,11 @@ public:
     inline bool CameraReady() const { return m_initializationOK; }
     inline const char *CameraName() const { return cam_name; }
     void SetExposure(float exposureInSeconds);
-    inline float GetExposure() { return exposure_; }
+    inline float GetExposure() const { return exposure_; }
     void SetShutterIsOpen(bool open);
     void SetReadout(int ReadSpeed);
     void SetTemperature(double temperatureInCelcius);
-    double GetTemperature();
+    double GetTemperature() const;
     void SetBinningAndROI(int x, int y, int x_min = 0, int x_max = 0, int y_min = 0, int y_max = 0);
     inline int GetBinningX() const { return binningX_; }
     inline int GetBinningY() const { return binningY_; }
@@ -91,4 +91,4 @@ private:
     void SetShutter();
 };
 
-#endif // __CAMERAUNIT_PI_H__
+#endif // __CAMERAUNIT_PI_HPP__

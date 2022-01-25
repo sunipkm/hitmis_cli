@@ -182,7 +182,7 @@ void CCameraUnit_PI::SetTemperature(double temperatureInCelcius)
 }
 
 // get temperature is done
-double CCameraUnit_PI::GetTemperature()
+double CCameraUnit_PI::GetTemperature() const
 {
     if (!m_initializationOK)
     {

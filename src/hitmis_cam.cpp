@@ -268,7 +268,7 @@ int main(int argc, char *argv[])
         CImageData img = cam->CaptureImage(retryCount);
         _snprintf(dirname, sizeof(dirname), "%s\\%s", config.savedir, get_date());
         checknmakedir(dirname);
-        img.SaveFits(NULL, dirname);
+        img.SaveFits(NULL, dirname, false, -1, -1, NULL, 0, true);
         tprintlf("Saved exposure (%.3f s), CCD Temperature %.2f", exposure, cam->GetTemperature());
         img.FindOptimumExposure(exposure, config.percentile, config.value, config.maxexposure, 0, config.uncertainty);
         cam->SetExposure(exposure);

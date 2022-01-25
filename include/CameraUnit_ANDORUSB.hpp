@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022
  * 
  */
-#ifndef __CAMERAUNIT_ANDORUSB_H__
-#define __CAMERAUNIT_ANDORUSB_H__
+#ifndef __CAMERAUNIT_ANDORUSB_HPP__
+#define __CAMERAUNIT_ANDORUSB_HPP__
 
 #include "CameraUnit.hpp"
 #include "atmcd32d.h"
@@ -18,7 +18,7 @@
 class CCameraUnit_ANDORUSB : public CCameraUnit
 {
     bool m_initializationOK;
-    std::mutex cs_;
+    mutable std::mutex cs_;
     bool cancelCapture_;
     std::string status_;
     int shutterDelayInMs_;
@@ -66,11 +66,11 @@ public:
     inline bool CameraReady() const { return m_initializationOK; }
     inline const char *CameraName() const { return cam_name; }
     void SetExposure(float exposureInSeconds);
-    inline float GetExposure();
+    inline float GetExposure() const;
     void SetShutterIsOpen(bool open);
     void SetReadout(int ReadSpeed);
     void SetTemperature(double temperatureInCelcius);
-    double GetTemperature();
+    double GetTemperature() const;
     void SetBinningAndROI(int x, int y, int x_min = 0, int x_max = 0, int y_min = 0, int y_max = 0);
     inline int GetBinningX() const { return binningX_; }
     inline int GetBinningY() const { return binningY_; }
@@ -90,4 +90,4 @@ private:
     void SetShutter();
 };
 
-#endif // __CAMERAUNIT_ANDORUSB_H__
+#endif // __CAMERAUNIT_ANDORUSB_HPP__

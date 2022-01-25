@@ -422,7 +422,7 @@ void CCameraUnit_ANDORUSB::SetTemperature(double temperatureInCelcius)
     }
 }
 
-double CCameraUnit_ANDORUSB::GetTemperature()
+double CCameraUnit_ANDORUSB::GetTemperature() const
 {
     if (!m_initializationOK)
     {
@@ -609,7 +609,7 @@ void CCameraUnit_ANDORUSB::SetExposure(float exposureInSeconds)
     // fflush(stdout);
 }
 
-float CCameraUnit_ANDORUSB::GetExposure()
+float CCameraUnit_ANDORUSB::GetExposure() const
 {
     if (!m_initializationOK)
     {
