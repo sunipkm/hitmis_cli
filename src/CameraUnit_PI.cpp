@@ -226,24 +226,24 @@ void CCameraUnit_PI::SetBinningAndROI(int binX, int binY, int x_min, int x_max, 
 
     binningY_ = binY;
 
-    imageLeft_ = x_min;
-    imageRight_ = x_max - 1;
-    imageBottom_ = y_min;
-    imageTop_ = y_max - 1;
+    imageLeft_ = x_min / binningX_;
+    imageRight_ = x_max / binningX_ - 1;
+    imageBottom_ = y_min / binningY_;
+    imageTop_ = y_max / binningY_ - 1;
 
-    if (imageRight_ > GetCCDWidth() - 1)
-        imageRight_ = GetCCDWidth() - 1;
+    if (imageRight_ > GetCCDWidth() / binningX_ - 1)
+        imageRight_ = GetCCDWidth() / binningX_ - 1;
     if (imageLeft_ < 0)
         imageLeft_ = 0;
     if (imageRight_ <= imageLeft_)
-        imageRight_ = GetCCDWidth() - 1;
+        imageRight_ = GetCCDWidth() / binningX_ - 1;
 
-    if (imageTop_ > GetCCDHeight() - 1)
-        imageTop_ = GetCCDHeight() - 1;
+    if (imageTop_ > GetCCDHeight() / binningY_ - 1)
+        imageTop_ = GetCCDHeight() / binningY_ - 1;
     if (imageBottom_ < 0)
         imageBottom_ = 0;
     if (imageTop_ <= imageBottom_)
-        imageTop_ = GetCCDHeight() - 1;
+        imageTop_ = GetCCDHeight() / binningY_ - 1;
 
     roiLeft = imageLeft_;
     roiRight = imageRight_ + 1;

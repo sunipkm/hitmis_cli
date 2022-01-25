@@ -492,11 +492,9 @@ void CCameraUnit_ANDORUSB::SetBinningAndROI(int binX, int binY, int x_min, int x
 
     lock.lock();
     width_ = x_max - x_min;
-    // make sure width_ is consistent with binning
-    width_ = (width_ / binningX_) * binningX_;
+    width_ = (width_ / binningX_);
     height_ = y_max - y_min;
-    // make sure height is consistent with binning
-    height_ = (height_ / binningY_) * binningY_;
+    height_ = (height_ / binningY_);
     xmin_ = x_min;
     xmax_ = x_min + width_;
     ymin_ = y_min;
